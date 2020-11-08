@@ -2,9 +2,9 @@ package com.company;
 import java.util.Arrays;
 
 public class Matrix {
-    private int rows;                        
-    private int columns;                     
-    private double[][] matrix;                 
+    private int rows;
+    private int columns;
+    private double[][] matrix;
 
     // Конструкторы
    public Matrix(int rows, int columns) {
@@ -62,7 +62,7 @@ public class Matrix {
        return columns;
     }
 
-    public Matrix sum(Matrix matrix1, Matrix matrix2) {
+    public static Matrix sum(Matrix matrix1, Matrix matrix2) {
 
         if(!((matrix1.rows == matrix2.rows) && (matrix1.columns == matrix2.columns))) {
             throw new IllegalArgumentException("Размеры матриц не совпадают");
@@ -88,7 +88,7 @@ public class Matrix {
         }
     }
 
-    public Matrix diff(Matrix matrix1, Matrix matrix2) {
+    public static Matrix diff(Matrix matrix1, Matrix matrix2) {
 
         if(!((matrix1.rows == matrix2.rows) && (matrix1.columns == matrix2.columns))) {
             throw new IllegalArgumentException("Размеры матриц не совпадают");
@@ -114,7 +114,7 @@ public class Matrix {
         }
     }
 
-    public Matrix multiply(Matrix matrix1, Matrix matrix2) {
+    public static Matrix multiply(Matrix matrix1, Matrix matrix2) {
 
         if(!(matrix1.columns == matrix2.rows)) {
             throw new IllegalArgumentException("Размеры матриц не совпадают");
@@ -134,8 +134,8 @@ public class Matrix {
             }
 
             Matrix matrix = new Matrix(size);
-            for(int i = 0; i < rows; i++) {
-                for(int j = 0; j < columns; j++) {
+            for(int i = 0; i < matrix.rows; i++) {
+                for(int j = 0; j < matrix.columns; j++) {
                     matrix.matrix[i][j] = 0;
                 }
             }
@@ -151,7 +151,7 @@ public class Matrix {
         }
     }
 
-    public Matrix multiplyScalyar (Matrix matrix1, int scalyar) {
+    public static Matrix multiplyScalyar (Matrix matrix1, int scalyar) {
        int size =  matrix1.matrix.length;
 
        Matrix matrix = new Matrix(size);
@@ -164,7 +164,14 @@ public class Matrix {
        return matrix;
     }
 
-    public double det(double matrix[][]){
+    public double det() {
+        if (rows != columns)
+            throw new IllegalArgumentException("Матрица не квадратная");
+        return calcDet(matrix);
+    }
+
+
+    public double calcDet(double matrix[][]){
         int size = matrix.length;
         if(size == 1) return matrix[0][0];
 
@@ -186,7 +193,7 @@ public class Matrix {
                     }
                 }
             }
-            ans += l * matrix[0][i] * det(B);
+            ans += l * matrix[0][i] * calcDet(B);
             l *= (-1);
         }
         return ans;
@@ -230,6 +237,13 @@ public class Matrix {
         return Arrays.hashCode(matrix);
     }
 }
+
+
+
+
+
+
+
 
 
 
