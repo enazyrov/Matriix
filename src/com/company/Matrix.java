@@ -71,7 +71,7 @@ public class Matrix {
             int size;
 
             if(!matrix1.checkSquare()) {
-                size = matrix1.rows > matrix1.columns ? matrix1.columns : matrix1.rows;
+                size = Math.min(matrix1.rows, matrix1.columns);
             }
             else {
                 size = matrix1.rows;
@@ -97,7 +97,7 @@ public class Matrix {
             int size;
 
             if(!matrix1.checkSquare()) {
-                size = matrix1.rows > matrix1.columns ? matrix1.columns : matrix1.rows;
+                size = Math.min(matrix1.rows, matrix1.columns);
             }
             else {
                 size = matrix1.rows;
@@ -120,29 +120,19 @@ public class Matrix {
             throw new IllegalArgumentException("Размеры матриц не совпадают");
         }
         else {
-
             int size;
-            int n;
-
             if(!matrix1.checkSquare()) {
-                size = matrix1.rows > matrix1.columns ? matrix1.columns : matrix1.rows;
-                n = matrix1.rows > matrix1.columns ? matrix1.rows : matrix1.columns;
+                size = Math.min(matrix1.rows, matrix1.columns);
             }
             else {
                 size = matrix1.rows;
-                n = matrix1.rows;
             }
 
             Matrix matrix = new Matrix(size);
-            for(int i = 0; i < matrix.rows; i++) {
-                for(int j = 0; j < matrix.columns; j++) {
-                    matrix.matrix[i][j] = 0;
-                }
-            }
 
-            for(int i = 0; i < size; i++) {
-                for(int j = 0; j < size; j++) {
-                    for(int k = 0; k < n; k++) {
+            for(int i = 0; i < matrix1.matrix.length; i++) {
+                for(int j = 0; j < matrix2.matrix[0].length; j++) {
+                    for(int k = 0; k < matrix1.matrix[0].length; k++) {
                         matrix.matrix[i][j] += matrix1.matrix[i][k]*matrix2.matrix[k][j];
                     }
                 }
